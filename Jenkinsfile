@@ -3,11 +3,9 @@ pipeline {
   stages { 
     stage('Upload to AWS.') {
       steps {
-        sh 'echo "Hello World"'
-        sh '''
-          echo "multiline shell steps works too"
-          ls -lah
-        '''
+        withAWS(region:'eu-central-1') {
+            s3Upload(file:'index.html', bucket:'udacityproject3', path:'index.html')
+        }
       }
     }
   }
